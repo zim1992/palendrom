@@ -12,27 +12,17 @@ namespace WebApplication3.Controllers
     {
 
         
-        private static IHubContext _hub = GlobalHost.ConnectionManager.GetHubContext<PalendromHub>();
+        
         private static IList<string> _palendroms;
-        private int maxValue = 13;
-        private int minValue = 4;
-        private int sizeOfWord = 0;
-        Random randNum = new Random();
+        
+        
         public HomeController()
         {
             if (_palendroms == null)
                 _palendroms = new List<string>();
-            //Palendrom();
-        }
-        public void Palendrom()
-        {
-            while (true)
-            {
-                sizeOfWord = randNum.Next(minValue, maxValue);
                 
-
-            }
         }
+        
         public ActionResult Index()
         {
             return View();
