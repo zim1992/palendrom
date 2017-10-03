@@ -9,6 +9,13 @@
 </div>
 
 <div class="row">
+    <div>
+        <input type="number" id="maxNumberOfLetters"/>
+        <input type="number" id="minNumberOfLetters" />
+        <input type="button" id="updateSize" value="Update"/>
+
+    </div>
+    <div id="value"></div>
     <div class="col-md-4">
         <h2>Getting started</h2>
         <p>
@@ -29,3 +36,19 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+@section scripts {
+<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        var connection = $.hubConnection();
+        var hub = connection.createHubProxy("PalendromHubs");
+        $('#updateSize').click(function () {
+            console.log($('#maxNumberOfLetters').val());
+            $('#maxNumberOfLetters').val('').focus();
+            $('#minNumberOfLetters').val('').focus();
+        });
+        connection.start();
+    });
+</script>
+}
