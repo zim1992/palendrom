@@ -10,18 +10,6 @@ namespace WebApplication3.Controllers
 {
     public class PalendromController : Controller
     {
-        IHubContext _hub = GlobalHost.ConnectionManager.GetHubContext<PalendromHub>();
-        private int maxValue = 13;
-        private int minValue = 4;
-        private int sizeOfWord = 0;
-        Random randNum = new Random();
-        public void Palendrom()
-        {
-            
-                sizeOfWord = randNum.Next(minValue, maxValue);
-                _hub.Clients.All.update(sizeOfWord);
-
-
-        }
+        
     }
 }

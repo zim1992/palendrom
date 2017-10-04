@@ -14,23 +14,26 @@ namespace WebApplication3.Controllers
         IHubContext _hub = GlobalHost.ConnectionManager.GetHubContext<PalendromHub>();
         private int maxValue = 13;
         private int minValue = 4;
-        private int sizeOfWord = 0;
+
         private string[] PalendromArray = new string[20];
         private string[] letters = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "u", "t", "v", "w", "x", "y", "z" };
         Random randNum = new Random();
 
         private static IList<string> _palendroms;
-        
-        
+
+        public string[] PalendromWord { get; private set; }
+
         public HomeController()
         {
             if (_palendroms == null)
                 _palendroms = new List<string>();
-                
+            
+
         }
         
         public ActionResult Index()
         {
+            CreatePalendroms();
             return View();
         }
         public ActionResult About()
@@ -40,7 +43,7 @@ namespace WebApplication3.Controllers
             return View();
         }
 
-        private Task<string[]> CreatePalendroms()
+        private Task CreatePalendroms()
         {
             return Task.Run(() =>
             {
@@ -52,10 +55,9 @@ namespace WebApplication3.Controllers
                     for (int j = 0; j < sizeOfword; j++)
                         tempWord += letters[randNum.Next(letters.Length)];
                     PalendromWords[i] = tempWord;
-                    
-
+                    _hub.Clients.All.Update(PalendromWords[i]);
                 }
-                return PalendromWord;
+                return RedirectToAction("Index");
 
             });
             

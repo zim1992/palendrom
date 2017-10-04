@@ -49,7 +49,6 @@
         connection.start().done(function () {
             hub.invoke("Update", minVal, maxVal);
         });
-        hub.invoke("Update", minVal, maxVal);
         hub.on("Update", function (value) {
             document.getElementById("value").innerHTML = value;
             console.log(value);
