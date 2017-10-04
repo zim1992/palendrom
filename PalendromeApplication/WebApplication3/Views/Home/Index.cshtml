@@ -44,17 +44,28 @@
     $(function () {
         var connection = $.hubConnection();
         var hub = connection.createHubProxy("PalendromHub");
+        var maxVal = 12;
+        var minVal = 4;
+        connection.start().done(function () {
+            hub.invoke("Update", minVal, maxVal);
+        });
+        hub.invoke("Update", minVal, maxVal);
         hub.on("Update", function (value) {
             document.getElementById("value").innerHTML = value;
+            console.log(value);
         });
+        
+       
         $('#updateSize').click(function () {
-            @Html.Action("Palendrom","Palendrom", "PalendromController");
+
             console.log($('#maxNumberOfLetters').val());
-            hub.invoke("Update", document.getElementById("maxNumberOfLetters").value)
+            maxVal = document.getElementById("maxNumberOfLetters").value;
+            minVal = document.getElementById('maxNumberOfLetters').value;
+            hub.invoke("Update", minVal, maxVal);
             $('#maxNumberOfLetters').val('').focus();
             $('#minNumberOfLetters').val('').focus();
         });
-        connection.start();
+        
     });
 </script>
 }

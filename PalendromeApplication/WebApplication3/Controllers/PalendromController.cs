@@ -15,17 +15,13 @@ namespace WebApplication3.Controllers
         private int minValue = 4;
         private int sizeOfWord = 0;
         Random randNum = new Random();
-        public AsyncController Palendrom()
+        public void Palendrom()
         {
-            while (true)
-            {
+            
                 sizeOfWord = randNum.Next(minValue, maxValue);
                 _hub.Clients.All.update(sizeOfWord);
 
 
-            }
-        }
-        public async void BackEndCalculations() {
         }
     }
 }

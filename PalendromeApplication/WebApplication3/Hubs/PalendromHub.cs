@@ -9,8 +9,10 @@ namespace WebApplication3.Hubs
 {
     public class PalendromHub : Hub
     {
-        public void Update(int value)
+        Random rand = new Random();
+        public void Update(int MaxValue, int MinValue)
         {
+            int value =  rand.Next(MinValue, MaxValue);
             Clients.All.Update(value);
         }
     }
