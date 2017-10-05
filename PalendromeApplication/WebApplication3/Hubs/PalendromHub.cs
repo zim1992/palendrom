@@ -51,16 +51,20 @@ namespace WebApplication3.Hubs
                             case 1:
                                 tempWord += letters[randNum.Next(letters.Length)]; 
                                 if ((j+1) >= halfway) {                                                                        
-                                    wordHalf = tempWord;
-                                    i = wordHalf.Length;
+                                    
                                     if (sizeOfword % 2 == 0)
                                     {
+                                        
                                         caseVar = 2;
                                     }
                                     else
                                     {
+                                        tempWord += letters[randNum.Next(letters.Length)];
+                                        i = wordHalf.Length;
                                         caseVar = 3;
                                     }
+                                    wordHalf = tempWord;
+                                    i = wordHalf.Length;
                                 }                                    
                                 break;
                             //Converts the word into a char array Determines if the word is an even or odd set of words if even it goes to case 3 and if odd then it goes to case 4
@@ -79,7 +83,7 @@ namespace WebApplication3.Hubs
                         }
                     }
 
-                    Clients.All.showTime(tempWord);                    
+                    Clients.All.palindromes(tempWord);                    
                     Clients.All.Values(maxValue, minValue);
                     minValLoc = minValue;
                     maxValLoc = maxValue;

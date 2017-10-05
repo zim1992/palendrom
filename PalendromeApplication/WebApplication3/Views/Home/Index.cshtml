@@ -22,7 +22,9 @@
         <h2>Min</h2>
         <p id="min"></p>
     </div>
-    <div id="time"></div>
+    <div>
+        <ol id="list"></ol>
+    </div>
     <div class="col-md-4">
         <h2>Getting started</h2>
         <p>
@@ -60,10 +62,12 @@
             document.getElementById("max").innerHTML = maxValue;
             document.getElementById("min").innerHTML = minValue;
         });
-        hub.on('showTime', function (t) {
-            $('#time').text(t);
-            console.log(t+" Palendrom");
+        hub.on('palindromes', function (t) {
+            $("ol").prepend("<li>"+t+"</li>");
+            console.log(t);
+            $('#list li:gt(19)').remove();
         });
+        
         hub.on('forLoop', function (loop) {
             $('#loop').text(loop);
             console.log(loop);
