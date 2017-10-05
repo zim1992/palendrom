@@ -43,8 +43,6 @@ namespace WebApplication3.Hubs
                     int caseVar = 1;
                     string wordHalf="";
                     int i = 0;
-                    Clients.All.forloop(sizeOfword + " wordSize");
-                    Clients.All.forloop(halfway + " Halfway size");
                     for (int j = 0; j < sizeOfword; j++)
                     {
                         switch (caseVar)
@@ -52,21 +50,15 @@ namespace WebApplication3.Hubs
                             // creates the first half of the word and when it reaches half way it goes to case 2 
                             case 1:
                                 tempWord += letters[randNum.Next(letters.Length)]; 
-                                if ((j+1) >= halfway) {
-                                    Clients.All.forloop(j + " j point");
-
-                                    Clients.All.forloop(sizeOfword % 2 == 0);
-                                                                        
+                                if ((j+1) >= halfway) {                                                                        
                                     wordHalf = tempWord;
                                     i = wordHalf.Length;
                                     if (sizeOfword % 2 == 0)
                                     {
-                                        Clients.All.forloop(wordHalf+" case1");
                                         caseVar = 2;
                                     }
                                     else
                                     {
-                                        Clients.All.forloop(wordHalf + " case1");
                                         caseVar = 3;
                                     }
                                 }                                    
@@ -74,12 +66,8 @@ namespace WebApplication3.Hubs
                             //Converts the word into a char array Determines if the word is an even or odd set of words if even it goes to case 3 and if odd then it goes to case 4
                             
                             case 2:
-                                
                                 tempWord += wordHalf.Substring((i-1),1);
                                 i--;
-                                Clients.All.forloop(wordHalf + " halfWord cas2");
-                                Clients.All.forloop(tempWord+ " temp cas2");
-
                                 break;
                             case 3:
                                 if ((i-2) >= 0)
