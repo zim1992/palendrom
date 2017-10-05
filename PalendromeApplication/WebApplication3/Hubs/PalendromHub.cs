@@ -19,9 +19,12 @@ namespace WebApplication3.Hubs
         private string[] letters = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "u", "t", "v", "w", "x", "y", "z" };
         public void Update(int MaxValue, int MinValue)
         {
-            maxValue = MaxValue;
-            minValue = MinValue;
-            Clients.All.Values(maxValue,minValue);
+            if (MaxValue > MinValue)
+            {
+                maxValue = MaxValue;
+                minValue = MinValue;
+                Clients.All.Values(maxValue, minValue);
+            }           
 
         }
         public override Task OnConnected()
