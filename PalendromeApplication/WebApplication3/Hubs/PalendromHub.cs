@@ -39,54 +39,55 @@ namespace WebApplication3.Hubs
                     string tempWord = "";
                     int sizeOfword = randNum.Next(minValLoc, maxValLoc);
                     double val = (sizeOfword / 2);
-                    int halway = Convert.ToInt32(Math.Floor(val));
-                    int caseVar = 0;
+                    int halfway = Convert.ToInt32(Math.Floor(val));
+                    int caseVar = 1;
+                    string wordHalf="";
+                    Clients.All.forloop(sizeOfword + " wordSize");
+                    Clients.All.forloop(halfway + " Halfway size");
                     for (int j = 0; j < sizeOfword; j++)
                     {
                         switch (caseVar)
                         {
+                            // creates the first half of the word and when it reaches half way it goes to case 2 
                             case 1:
                                 tempWord += letters[randNum.Next(letters.Length)];
-                                if (j < halway)
-                                    caseVar = 2;
-                                break;
-                            case 2:
-                                if (sizeOfword % 2 == 0)
-                                {
-                                    caseVar = 3;
+                                if ((j+1) > halfway) {
+                                    Clients.All.forloop(j + " j point");
 
-                                }
-                                else
-                                {
-                                    caseVar = 4;
-                                }
+                                    Clients.All.forloop(sizeOfword % 2 == 0);
+                                    
+                                    wordHalf = tempWord;
+                                    if (sizeOfword % 2 == 0)
+                                    {
+                                        Clients.All.forloop(wordHalf+" case1");
+                                        caseVar = 2;
+                                    }
+                                    else
+                                    {
+                                        Clients.All.forloop(wordHalf + " case1");
+                                        caseVar = 3;
+                                    }
+                                }                                    
+                                break;
+                            //Converts the word into a char array Determines if the word is an even or odd set of words if even it goes to case 3 and if odd then it goes to case 4
+                            
+                            case 2:
+                                
+                                tempWord += wordHalf.Substring(j-1);
+                                Clients.All.forloop(wordHalf + " halfWord cas2");
+                                Clients.All.forloop(tempWord+ " temp cas2");
+
                                 break;
                             case 3:
-                                
+                                tempWord += wordHalf.Substring(j-1);
+                                Clients.All.forloop(wordHalf + " halfWord cas3");
+                                Clients.All.forloop(tempWord + " temp cas3");
                                 break;
-                            case 4:
-                                break;
-
                         }
-                        //Checks if the word generation is halfway
-                        if (j < halway&&sizeOfword%2==0)
-                        {
-                            
-                        }
-                        if(j < halway && sizeOfword % 2 != 0)
-                        {
-
-                        }
-                        else
-                        {
-                            tempWord += letters[randNum.Next(letters.Length)];
-                        }
-                           
-
                     }
-                        
-                    
+
                     Clients.All.showTime(tempWord);
+                    
                     Clients.All.Values(maxValue, minValue);
                     minValLoc = minValue;
                     maxValLoc = maxValue;
