@@ -33,37 +33,13 @@ namespace WebApplication3.Controllers
         
         public ActionResult Index()
         {
-            CreatePalendroms();
             return View();
         }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
-
-        private Task CreatePalendroms()
-        {
-            return Task.Run(() =>
-            {
-                string[] PalendromWords = new string[20];
-                for (int i = 0; i < 20; i++)
-                {
-                    string tempWord = "";
-                    int sizeOfword = randNum.Next(minValue, maxValue);
-                    for (int j = 0; j < sizeOfword; j++)
-                        tempWord += letters[randNum.Next(letters.Length)];
-                    PalendromWords[i] = tempWord;
-                    _hub.Clients.All.Update(PalendromWords[i]);
-                }
-                return RedirectToAction("Index");
-
-            });
-            
-            
-        }
-
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
