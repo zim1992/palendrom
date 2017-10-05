@@ -42,6 +42,7 @@ namespace WebApplication3.Hubs
                     int halfway = Convert.ToInt32(Math.Floor(val));
                     int caseVar = 1;
                     string wordHalf="";
+                    int i = 0;
                     Clients.All.forloop(sizeOfword + " wordSize");
                     Clients.All.forloop(halfway + " Halfway size");
                     for (int j = 0; j < sizeOfword; j++)
@@ -50,13 +51,14 @@ namespace WebApplication3.Hubs
                         {
                             // creates the first half of the word and when it reaches half way it goes to case 2 
                             case 1:
-                                tempWord += letters[randNum.Next(letters.Length)];
-                                if ((j+1) > halfway) {
+                                tempWord += letters[randNum.Next(letters.Length)]; 
+                                if ((j+1) >= halfway) {
                                     Clients.All.forloop(j + " j point");
 
                                     Clients.All.forloop(sizeOfword % 2 == 0);
-                                    
+                                                                        
                                     wordHalf = tempWord;
+                                    i = wordHalf.Length;
                                     if (sizeOfword % 2 == 0)
                                     {
                                         Clients.All.forloop(wordHalf+" case1");
@@ -73,21 +75,23 @@ namespace WebApplication3.Hubs
                             
                             case 2:
                                 
-                                tempWord += wordHalf.Substring(j-1);
+                                tempWord += wordHalf.Substring((i-1),1);
+                                i--;
                                 Clients.All.forloop(wordHalf + " halfWord cas2");
                                 Clients.All.forloop(tempWord+ " temp cas2");
 
                                 break;
                             case 3:
-                                tempWord += wordHalf.Substring(j-1);
-                                Clients.All.forloop(wordHalf + " halfWord cas3");
-                                Clients.All.forloop(tempWord + " temp cas3");
+                                if ((i-2) >= 0)
+                                {
+                                    tempWord += wordHalf.Substring((i - 2), 1);
+                                }                            
+                                i--;
                                 break;
                         }
                     }
 
-                    Clients.All.showTime(tempWord);
-                    
+                    Clients.All.showTime(tempWord);                    
                     Clients.All.Values(maxValue, minValue);
                     minValLoc = minValue;
                     maxValLoc = maxValue;
