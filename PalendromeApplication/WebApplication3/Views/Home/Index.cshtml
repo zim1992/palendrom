@@ -3,22 +3,22 @@
 }
 
 
-<div class="row">
+<div ng-controller="PalendromController" class="row">
     <div>
         <h1>Welcome </h1>
-        <p>We will be creating palendroms with a fixed size of palendroms</p>
+        <p>In the input box you can update the size of palendroms you wish to create</p>
     </div>
     <div>
         <input type="number" id="maxNumberOfLetters" placeholder="Max Value"/>
         <input type="number" id="minNumberOfLetters" placeholder="Min Value"/>
         <input type="button" id="updateSize" value="Update"/>
 
-    </div>
-  
+    </div>  
     <div>
-        <h2>Max word Size</h2>
+        <h1>Current Palindrom Size been generated</h1>
+        <h3>Max word Size</h3>
         <p id="max"></p>
-        <h2>Min word size</h2>
+        <h3>Min word size</h3>
         <p id="min"></p>
     </div>
     <div>
@@ -31,43 +31,4 @@
 @section scripts {
 <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
 
-<script type="text/javascript">
-    $(function () {
-        var connection = $.hubConnection();
-        var hub = connection.createHubProxy("PalendromHub");
-        var maxVal = 12;
-        var minVal = 4;
-        connection.start().done(function () {
-            hub.invoke("Update", maxVal, minVal);
-        });
-        hub.on("Values", function (maxValue, minValue) {
-            document.getElementById("max").innerHTML = maxValue;
-            document.getElementById("min").innerHTML = minValue;
-        });
-        hub.on('palindromes', function (t) {
-            $("ol").prepend("<li>"+t+"</li>");
-            console.log(t);
-            $('#list li:gt(19)').remove();
-        });
-        
-        hub.on('forLoop', function (loop) {
-            $('#loop').text(loop);
-            console.log(loop);
-
-        });
-
-        
-       
-        $('#updateSize').click(function () {
-
-            console.log($('#maxNumberOfLetters').val());
-            maxVal = document.getElementById("maxNumberOfLetters").value;
-            minVal = document.getElementById('minNumberOfLetters').value;
-            hub.invoke("Update", maxVal, minVal);
-            $('#maxNumberOfLetters').val('').focus();
-            $('#minNumberOfLetters').val('').focus();
-        });
-        
-    });
-</script>
 }

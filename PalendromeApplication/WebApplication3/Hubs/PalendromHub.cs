@@ -27,6 +27,10 @@ namespace WebApplication3.Hubs
             }           
 
         }
+        /**
+         * This method is called when the client connects to the application every second 
+         * The new palendroms are then sent to the client 
+         **/ 
         public override Task OnConnected()
         {
             int minValLoc = minValue;

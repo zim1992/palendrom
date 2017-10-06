@@ -10,7 +10,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body ng-app="app">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -37,5 +37,35 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        var app = angular.module('app', []);
+        app.controller('PalendromController', function ($scope) {
+            var connection = $.hubConnection();
+            var hub = connection.createHubProxy("PalendromHub");
+            //starts the connection to the hub
+            connection.start();
+            //Updates the max and min value for generating palendroms on the hub. 
+            hub.on("Values", function (maxValue, minValue) {
+                document.getElementById("max").innerHTML = maxValue;
+                document.getElementById("min").innerHTML = minValue;
+            });
+            //Prepends the new palendrom to the top of an ordered list item and removes list times which are greater than 20
+            hub.on('palindromes', function (t) {
+                $("ol").prepend("<li>" + t + "</li>");
+                console.log(t);
+                $('#list li:gt(19)').remove();
+            });
+            //updates the palendrom with max and min size of palendroms wished to be created
+            $('#updateSize').click(function () {
+                var maxVal = document.getElementById("maxNumberOfLetters").value;
+                var minVal = document.getElementById('minNumberOfLetters').value;
+                hub.invoke("Update", maxVal, minVal);
+                $('#maxNumberOfLetters').val('').focus();
+                $('#minNumberOfLetters').val('').focus();
+            });
+
+        });
+
+    </script>
 </body>
 </html>
