@@ -17,6 +17,9 @@ namespace WebApplication3.Hubs
         public static int minValue=5;
        
         private string[] letters = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "u", "t", "v", "w", "x", "y", "z" };
+        /**
+         * Updates the MaxValue and min value provided the value inputted in the max is greater than the min
+         * */
         public void Update(int MaxValue, int MinValue)
         {
             if (MaxValue > MinValue)
